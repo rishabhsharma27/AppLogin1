@@ -10,6 +10,27 @@
 <body>
     <h1>Login</h1>
 
+    <ul>
+        <script>
+            console.log(error.message);
+        </script>
+        <% if(typeof errors != 'undefined') { %> 
+        <% errors.forEach(error=>{ %>
+        <li><%= error.message %></li>
+        <% }) %> <% } %>
+        
+    </ul>
+
+    <ul>
+        <script>
+            console.log(messages.error);
+        </script>
+        <% if(messages.error) { %> 
+        <li><%= messages.error %></li>
+        <% } %>
+        
+    </ul>
+
     <form action="/user/login" method="POST">
 
         <div>

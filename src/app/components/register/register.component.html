@@ -10,8 +10,18 @@
 <body>
     <h1>Register</h1>
 
-   
+    <ul>
+        <% if(typeof errors != 'undefined') { %> 
+        <% errors.forEach(error=>{ %>
+        <li><%= error.message %></li>
+        <% }) %> <% } %>
+        
+    </ul>
+
+
     <form action="/user/register" method="POST">
+        
+        
         <div>
             <input 
             type="text" 
@@ -53,7 +63,7 @@
         <div>
             <input
             type="submit"
-            vslue="Register"
+            value="Register"
             />
         </div>
         <a href="/user/login">Already regitered? Login here</a>
