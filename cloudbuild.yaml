@@ -4,10 +4,10 @@ steps:
   entrypoint: 'npm'
   args: ['install']
 
- - name: 'node'
+- name: 'node'
    entrypoint: 'npm'
-   args: ['run','build' ]
+   args: ['run','build' ,'--prod']
 
 - name: 'node'
   entrypoint: 'npm'
-  args: ['app', 'deploy']
+  args: ['app', 'deploy' , '--version=prod']
