@@ -1,15 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" >
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Dashboard</title>
 </head>
 <body>
     <a href="/user/logout">Logout</a>
-    <h1>Hello <%= user.charAt(0).toUpperCase() + user.slice(1) %></h1>
+    <h1 style="text-align: center;">Hello <%= user.charAt(0).toUpperCase() + user.slice(1) %></h1>
+    <br>
+    <table>
+      <tr>
+         <th>No.</th><th>Items</th><th></th>
+      </tr>
+   
+      <% for ( i = 0; i < newListItem.length;   i++) { %>
+       <tr>
+         <td><%= i + 1 %></td>
+         <td><%= newListItem[i] %></td>
+         <td>
+          <form action="/user/dashboard" method="POST">
+            <button class="deleteItemBtn" type="hidden" name="delete" value="<%= newListItem[i] %>">x</button>
+         </form> 
+        </td>
+       </tr>    
+      <% } %>
+   </table>
+
+                    <form action="/user/dashboard" method="POST">
+                      <div>
+                        <input 
+                        type="text" 
+                        id="newItem" 
+                        name="newItem" 
+                        placeholder="Add items to List"
+                         required
+                         />
+                    </div>
+                    <div>
+                        <input
+                        type="submit"
+                        value="Add"
+                        />
+                    </div>
+                    </form>
+            
     
 </body>
-</html>
+

@@ -1,0 +1,29 @@
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<body>
+    <a href="/user/logout">Logout</a>
+    <h1 style="text-align: center;">Hello <%= user.charAt(0).toUpperCase() + user.slice(1) %></h1>
+    <br>
+    <p>List of Users</p>
+
+    <table>
+        <tr>
+           <th>No.</th><th>Name</th><th>email</th>
+        </tr>
+     
+        <% for ( i = 0; i < user_list.length;   i++) { %>
+         <tr>
+           <td><%= i + 1 %></td>
+           <td><%= user_list[i].name %></td>
+           <td><%= user_list[i].email %></td>
+         </tr>    
+        <% } %>
+     </table>
+
+
+</body>

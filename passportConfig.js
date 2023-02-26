@@ -30,11 +30,11 @@ function initialize(passport) {
                     }
                 
                     if (isMatch) {
-                        console.log('pass');
+                        //console.log('pass');
                         return done(null, user);
                         
                     }else{
-                        console.log('fail');
+                        //console.log('fail');
                         return done(null, false, {message: "Password is not correct"});
                     }
                 });
@@ -59,7 +59,7 @@ function initialize(passport) {
     passport.serializeUser((users, done) => done(null, users));
 
     passport.deserializeUser((users, done) => {
-        console.log(users);
+        //console.log(users);
         
         pool.query(
             `Select * FROM users WHERE id = $1`, [users.id], 
@@ -67,7 +67,7 @@ function initialize(passport) {
                 if (err){
                     throw err;
                 }
-                console.log(results.rows);
+                //console.log(results.rows);
                 return done(null, results.rows[0]);
             }
         )

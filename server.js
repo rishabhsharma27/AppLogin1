@@ -21,6 +21,7 @@ const PORT = process.env.PORT || 4000;
 const passport = require("passport");
 
 const initializePassport = require("./passportConfig");
+const { name } = require("ejs");
 
 initializePassport(passport);
 
@@ -31,6 +32,7 @@ app.set('view engine', 'html');
 app.set('view engine', 'ejs');
 
 app.use(express.urlencoded({ extended: false }));
+
 
 app.use(session({ 
     secret: 'secret',
@@ -47,7 +49,7 @@ app.use(flash());
 
 app.get("/", (req, res) => {
     //res.send(__dirname+'/src/app/components/login/login.html');
-    res.sendFile(__dirname+'/src/app/components/home/home.component.html');
+    res.render(__dirname+'/src/app/components/home/home.component.html');
 }
 );
 
@@ -59,15 +61,66 @@ app.get("/user/register", checkAuthenticated , (req, res) => {
 app.get("/user/login", checkAuthenticated, (req, res) => {
     //res.send(__dirname+'/src/app/components/login/login.html');
     let errors = [];
+    //req.session.id = id;
+    //res.send(req.session.id);
     res.render(__dirname+'/src/app/components/login/login.component.html',{errors});
 }
 );
 
-app.get("/user/dashboard", checkNotAuthenticated, (req , res) => {
+
+let newItems = [];
+let user_list = [];
+app.get("/user/dashboard", checkNotAuthenticated , (req , res) => {
     //let user = [];
-    res.render(__dirname+'/src/app/components/dashboard/dashboard.component.html',{user: req.user.name});
-}
+    
+    let user =  req.user.name;
+    let password =  req.user.password;
+    
+    //console.log(user)
+    if (user == 'rishabh sharma' && password=='$2b$10$U4.zTvtrUsYtzHzLoL9uOO5/ujax86OBHmc5Ub7CtJPSeeqmOFeTO'){
+        //console.log("mot here")
+        pool.query(
+            `Select * FROM users` , 
+            (err, results) => {
+                if (err){
+                    throw err;
+                }
+            //console.log("here")
+            //console.log(results.rows.length);
+            user_list = results.rows;
+            //console.log(user_list);
+            res.render(__dirname+'/src/app/components/admin/admin.component.html',{user_list,user});
+        })
+
+    }
+    else{
+     res.render(__dirname+'/src/app/components/dashboard/dashboard.component.html',{user: req.user.name, newListItem : newItems, id: req.user.id});
+    }}
+
 );
+
+app.get("/user/admin", checkAuthenticated , (req, res) => {
+    res.render(__dirname+'/src/app/components/admin/admin.component.html',{user_list,user});
+
+});
+
+
+app.post("/user/dashboard" , async (req,res)=>{
+    let newItem = req.body.newItem;
+    newItems.push(newItem);
+    if(req.body.delete){
+        
+        const index = newItems.indexOf(req.body.delete); 
+        console.log(index)
+        if (index > -1) { // only splice array when item is found
+            newItems = newItems.splice(index,1);
+            console.log(newItems.length)
+            res.render(__dirname+'/src/app/components/dashboard/dashboard.component.html',{user: req.user.name, newListItem : newItems, id: req.user.id});
+        }
+      }else{
+        res.redirect("/user/dashboard");
+      }
+});
 
 
 app.get("/user/logout", (req, res) => {
@@ -85,12 +138,7 @@ app.get("/user/logout", (req, res) => {
 
 app.post("/user/register" , async (req,res)=>{
     let{name, email, password, password2 } = req.body;
-    console.log({
-        name,
-        email,
-        password,
-        password2
-    });
+    //console.log({ name, email,password,password2 });
     
     let errors = [];
 
@@ -112,7 +160,7 @@ app.post("/user/register" , async (req,res)=>{
        
     } else {
         let hashedPassword = await bcrypt.hash(password,10);
-        console.log(hashedPassword)
+        //console.log(hashedPassword)
 
 
         pool.query(
@@ -121,6 +169,7 @@ app.post("/user/register" , async (req,res)=>{
                 if (err){
                     throw err;
                 }
+            console.log("here")
             console.log(results.rows);
 
             if(results.rows.length > 0){
@@ -168,6 +217,8 @@ function checkNotAuthenticated(req,res,next){
     }
     res.redirect("/user/login")
 }
+
+
 
  app.listen(PORT , () => {
     console.log('Server running on port : ' + PORT);

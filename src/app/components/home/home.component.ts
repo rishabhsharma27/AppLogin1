@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -8,3 +11,4 @@ import { Component } from '@angular/core';
 export class HomeComponent {
 
 }
+
