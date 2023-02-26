@@ -6,8 +6,8 @@ steps:
 
  - name: 'node'
    entrypoint: 'npm'
-   args: ['run','build' ,'--prod']
+   args: ['run','build' ]
 
 - name: 'node'
   entrypoint: 'npm'
-  args: ['app', 'deploy' , '--version=prod']
+  args: ['app', 'deploy']
