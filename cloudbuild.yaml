@@ -1,13 +1,13 @@
 steps:
 
-- name: 'node'
-  entrypoint: 'npm'
+- name: node
+  entrypoint: npm
   args: ['install']
 
-- name: 'node'
-   entrypoint: 'npm'
-   args: ['run','build' ,'--prod']
+- name: node
+  entrypoint: npm
+  args: ['test']
 
-- name: 'node'
-  entrypoint: 'npm'
-  args: ['app', 'deploy' , '--version=prod']
+- name: node
+  entrypoint: npm
+  args: ['run', 'build']
