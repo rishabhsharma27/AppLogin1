@@ -25,6 +25,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import 'localstorage-polyfill';
 import { AdminComponent } from './components/admin/admin.component';
+import { AppYamlComponent } from '../../app.yaml/app.yaml.component';
 
 
 global['localStorage'] = localStorage;
@@ -40,6 +41,7 @@ global['localStorage'] = localStorage;
     HomeComponent,
     DashboardComponent,
     AdminComponent,
+    AppYamlComponent,
   
   ],
   imports: [
