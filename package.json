@@ -26,7 +26,7 @@
     "@material-ui/core": "^4.12.4",
     "@syncfusion/ej2-angular-grids": "^20.4.51",
     "@syncfusion/ej2-material-theme": "^20.4.50",
-    "angularfire": "^2.3.0",
+    "angularfire": "^1.2.0",
     "bcrypt": "^5.1.0",
     "bootstrap": "^5.3.0-alpha1",
     "dotenv": "^16.0.3",
